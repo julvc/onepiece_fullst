@@ -18,27 +18,12 @@ import SagasPage from './pages/SagasPage';
 // import SwordsPage from './pages/SwordsPage';
 // import VolumensPage from './pages/VolumesPage';
 
-
-
-// const App: React.FC = () => {
-//   return (
-//     <div className="min-h-screen bg-gray-100">
-//       <header className="bg-blue-500 text-white p-4">
-//         <h1 className="text-xl">One Piece API Project</h1>
-//       </header>
-//       <main className="p-4">
-//         <Outlet />
-//       </main>
-//     </div>
-//   );
-// };
-
-const App = () => {
+const App: React.FC = () => {
   return (
     <Router>
       <div className="flex h-screen">
         {/* Sidebar para pantallas grandes */}
-        <div className="hidden md:block w-1/5 bg-gray-900 text-white">
+        <div className="hidden md:block w-64 bg-gray-900">
           <Sidebar />
         </div>
 
@@ -49,11 +34,12 @@ const App = () => {
             <Superiorbar />
           </div>
 
+          {/* Contenido dinámico */}
           <div className="p-4">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/sagas" element={<SagasPage />} />
-              {/* Agregar rutas para otras páginas */}
+              {/* Agrega más rutas según sea necesario */}
             </Routes>
           </div>
         </div>
@@ -61,6 +47,7 @@ const App = () => {
     </Router>
   );
 };
+
 
 
 export default App;
