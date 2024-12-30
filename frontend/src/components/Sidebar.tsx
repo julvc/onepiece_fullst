@@ -35,17 +35,20 @@ const Sidebar = () => {
             <h1 className="text-2xl font-bold mb-6">One Piece Explorer</h1>
 
             <nav className="flex flex-col gap-4">
+                <a href="/" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Inicio</a>
+            </nav>
+
+            <nav className="flex flex-col gap-4">
                 {/* <a href="/boats" className="hover:bg-gray-800 p-2 rounded">Botes</a> */}
                 <a href="/bows" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Arcos</a>
             </nav>
 
             <nav className="flex flex-col gap-4">
-                <a href="/boats" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Botes</a>
+                <a href="/boats" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Barcos</a>
             </nav>
 
-
             <nav className="flex flex-col gap-4">
-                <a href="/chapters" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Capitulos</a>
+                <a href="/chapters" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Capítulos</a>
             </nav>
 
             <nav className="flex flex-col gap-4">
@@ -69,21 +72,18 @@ const Sidebar = () => {
             </nav>
 
             <nav className="flex flex-col gap-4">
-                <a href="/luffystechniques" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Luffy Tecnicas</a>
+                <a href="/luffystechniques" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Luffy Técnicas</a>
             </nav>
 
             <nav className="flex flex-col gap-4">
-                {/* <a href="/boats" className="hover:bg-gray-800 p-2 rounded">Botes</a> */}
                 <a href="/sagas" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Sagas</a>
             </nav>
 
             <nav className="flex flex-col gap-4">
-                {/* <a href="/boats" className="hover:bg-gray-800 p-2 rounded">Botes</a> */}
-                <a href="/films" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Peliculas</a>
+                <a href="/films" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Películas</a>
             </nav>
 
             <nav className="flex flex-col gap-4">
-                {/* <a href="/boats" className="hover:bg-gray-800 p-2 rounded">Botes</a> */}
                 <a href="/crews" className="text-lg font-medium hover:bg-gray-800 px-4 py-2 rounded transition">Tripulaciones</a>
             </nav>
 
