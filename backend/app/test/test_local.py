@@ -10,8 +10,6 @@ client = TestClient(app)  # Crea una instancia de TestClient pasando la app Fast
 @pytest.mark.asyncio
 async def test_get_sagas():
     await populate_sagas()
-    # async with AsyncClient(app=app) as ac:
-    #     response = await ac.get("/api/sagas")
     response = client.get("/api/sagas")
     assert response.status_code == 200
     assert isinstance(response.json(), list)

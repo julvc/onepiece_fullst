@@ -3,8 +3,12 @@ from app.db.mongo import mongodb, object_id
 from app.models.saga import Saga
 from typing import List
 from deep_translator import GoogleTranslator
+from app.utils.populate import translate_json_with_cache
 
 router = APIRouter()
+class SagaRoutes:
+    translation_cache_all = {}
+    translation_cache_id = {}
 
 @router.post("/", response_model=Saga, summary="Create a new saga")
 async def create_saga(saga: Saga):
@@ -38,9 +42,14 @@ async def create_saga(saga: Saga):
 async def get_all_sagas():
     response = await mongodb.db.sagas.find().to_list(100)
     
-        # Campos específicos para traducir
+    # Campos específicos para traducir
     fields_to_translate = ["saga_chapitre", "saga_volume", "saga_episode"]
-    sagas = translate_json_with_cache(response, fields_to_translate=fields_to_translate)
+        # Usamos el cache de la clase para la traducción
+    sagas = await translate_json_with_cache(
+        response, 
+        fields_to_translate=fields_to_translate,
+        cache=SagaRoutes.translation_cache_all  # Usamos el cache definido en la clase
+    )
     return [Saga(**saga) for saga in sagas]
 
 @router.get("/{id}", response_model=Saga, summary="Get a saga by ID")
@@ -65,67 +74,3 @@ async def delete_saga(id: str):
         raise HTTPException(status_code=404, detail="Saga not found")
     return {"message": "Saga deleted"}
 
-
-# def translate_json_in_bulk(json_data, fields_to_translate=None, source="fr", target="es"):
-#     """
-#     Traduce solo campos específicos de un objeto JSON, en bloques.
-
-#     Args:
-#         json_data (list): Lista de objetos JSON a traducir.
-#         fields_to_translate (list): Lista de nombres de los campos que se deben traducir.
-#         source (str): Idioma fuente (por defecto, 'fr').
-#         target (str): Idioma destino (por defecto, 'es').
-
-#     Returns:
-#         list: Lista de objetos JSON traducidos.
-#     """
-#     if fields_to_translate is None:
-#         fields_to_translate = []
-
-#     translated_data = []
-#     translator = GoogleTranslator(source=source, target=target)
-
-#     for item in json_data:
-#         # Extraer valores a traducir
-#         values_to_translate = [item[key] for key in fields_to_translate if key in item and isinstance(item[key], str)]
-        
-#         # Traducir en bloque
-#         if values_to_translate:
-#             translated_values = translator.translate_batch(values_to_translate)
-        
-#         # Crear nuevo objeto con las traducciones
-#         translated_item = {
-#             key: translated_values.pop(0) if key in fields_to_translate and isinstance(item[key], str) else item[key]
-#             for key in item
-#         }
-#         translated_data.append(translated_item)
-
-#     return translated_data
-
-
-translation_cache = {}
-
-def translate_with_cache(text, source="fr", target="es"):
-    if text in translation_cache:
-        return translation_cache[text]
-
-    translator = GoogleTranslator(source=source, target=target)
-    translated_text = translator.translate(text)
-    translation_cache[text] = translated_text
-    return translated_text
-
-
-def translate_json_with_cache(json_data, fields_to_translate=None, source="fr", target="es"):
-    if fields_to_translate is None:
-        fields_to_translate = []
-
-    translated_data = []
-
-    for item in json_data:
-        translated_item = {
-            key: translate_with_cache(item[key], source, target) if key in fields_to_translate and isinstance(item[key], str) else item[key]
-            for key in item
-        }
-        translated_data.append(translated_item)
-
-    return translated_data
