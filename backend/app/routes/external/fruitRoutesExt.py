@@ -22,7 +22,7 @@ async def get_fruits():
 @router.get("/en/search",response_model=List[Fruit] ,summary="Search fruit by name")
 async def search_fruit(
     name: Optional[str] = None, 
-    type: Optional[str] = None, 
+    type: Optional[str] = None 
     ):
     try:
         # Construir los parámetros dinámicamente
