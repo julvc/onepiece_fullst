@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 import os
 
 from app.routes.external import sagasRoutesExt
+from app.routes.external import locateRoutesExt
 from app.routes.local import sagasRoutes
 
 @asynccontextmanager
@@ -32,5 +33,15 @@ app.add_middleware(
 )
 
 # Registrar rutas
-app.include_router(sagasRoutesExt.router, prefix="/api/external", tags=["External API"])
+#region Rutas externas
+app.include_router(sagasRoutesExt.router, prefix="/api/sagas", tags=["External API for Sagas"])
+app.include_router(locateRoutesExt.router, prefix="/api/locates", tags=["External API for Locations"])
+
+
+#endregion
+
+
+#region Rutas locales
 app.include_router(sagasRoutes.router, prefix="/api/sagas", tags=["Sagas CRUD"])
+
+#endregion

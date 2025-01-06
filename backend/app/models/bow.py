@@ -1,11 +1,11 @@
 from pydantic import BaseModel, Field, ConfigDict, field_validator
-from typing import Optional
+from typing import Optional, Union
 from bson import ObjectId
 
-from backend.app.models.saga import Saga
+from app.models.saga import Saga
 
 class Bow(BaseModel):
-    id: Optional[str] = Field(alias="id")
+    id: Optional[Union[str, int]] = Field(alias="_id")
     title: Optional[str] = None
     description: Optional[str] = None
     saga: Saga
@@ -16,7 +16,7 @@ class Bow(BaseModel):
     
     # Validación adicional para convertir ObjectId a str
     @field_validator("id", mode="before")
-    def validate_id(self, value):
-        if isinstance(value, ObjectId):
+    def convert_object_id(cls, value):
+        if isinstance(value, ObjectId) or isinstance(value, int):
             return str(value)
         return value
