@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException, Depends
 from app.db.mongo import mongodb, object_id
 from app.models.saga import Saga
 from typing import List
-from deep_translator import GoogleTranslator
 from app.utils.populate import translate_json_with_cache
 
 router = APIRouter()

@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from app.routes import external
-from app.routes import sagasRoutes
 # from app.db.mongo import mongo
 from fastapi.middleware.cors import CORSMiddleware
 from app.db.mongo import connect_to_mongo, close_mongo_connection
 from contextlib import asynccontextmanager
 import os
 
+from app.routes.external import sagasRoutesExt
+from app.routes.local import sagasRoutes
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -32,5 +32,5 @@ app.add_middleware(
 )
 
 # Registrar rutas
-app.include_router(external.router, prefix="/api/external", tags=["External API"])
+app.include_router(sagasRoutesExt.router, prefix="/api/external", tags=["External API"])
 app.include_router(sagasRoutes.router, prefix="/api/sagas", tags=["Sagas CRUD"])
