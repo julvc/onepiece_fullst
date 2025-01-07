@@ -14,7 +14,7 @@ BASE_URL = f"{settings.API_URL}"
 @router.get("/en", summary="List all chapters")
 async def get_chapters():
     try:
-        response = requests.get(f"{BASE_URL}/en/chapters")
+        response = requests.get(f"{BASE_URL}/chapters/en")
         response.raise_for_status()
         valid_data = response.json()
         valid_data = [Chapter(**item) for item in valid_data if item]
