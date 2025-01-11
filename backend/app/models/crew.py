@@ -10,8 +10,8 @@ class Crew(BaseModel):
     number: Optional[str] = None
     roman_name: Optional[str] = None
     total_prime: Optional[str] = None
-    is_yonko: Optional[str] = None
-
+    is_yonko: Optional[bool] = None
+    
     model_config: ConfigDict = {
         'populate_by_name': True  # Nueva forma de configurar
     }

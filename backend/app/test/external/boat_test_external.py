@@ -18,21 +18,21 @@ def test_search_boat_one_value():
     response = client.get("/api/boats/en/search?name=Merry")
     assert response.status_code == 200
     
-# def test_search_boat_two_values():
-#     response = client.get("/api/boats/en/search?name=Merry&type=Pirate")
-#     assert response.status_code == 200
+def test_search_boat_two_values():
+    response = client.get("/api/boats/en/search?name=Merry&type=Pirate")
+    assert response.status_code == 200
     
-# def test_boat_count():
-#     response = client.get("/api/boats/en/count")
-#     assert response.status_code == 200
+def test_boat_count():
+    response = client.get("/api/boats/en/count")
+    assert response.status_code == 200
 
-# def test_get_boat_by_id():
-#     response = client.get("/api/boats/en/1")
-#     assert response.status_code == 200
+def test_get_boat_by_id():
+    response = client.get("/api/boats/en/1")
+    assert response.status_code == 200
 
-# def test_get_boats_by_crew():
-#     response = client.get("/api/boats/en/crew/8")
-#     assert response.status_code == 200
+def test_get_boats_by_crew():
+    response = client.get("/api/boats/en/crew/8")
+    assert response.status_code == 200
 
 # def test_get_boats_count_by_crew():
 #     response = client.get("/api/boats/en/count/crew/8")
