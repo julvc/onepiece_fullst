@@ -17,6 +17,7 @@ async def list_swords():
         response = requests.get(f"{BASE_URL}/swords/en")
         response.raise_for_status()
         valid_data = response.json()
+        valid_data = [Sword(**item) for item in valid_data if item]
         return valid_data
     except requests.exceptions.RequestException as e:
         logger.error(f"Error: {e}")

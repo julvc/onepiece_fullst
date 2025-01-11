@@ -69,4 +69,3 @@ async def get_volume(volume_id: int):
     except ValidationError as e:
         logger.error(f"Error: {e}")
         raise HTTPException(status_code=422, detail="Unprocessable Entity")
-    

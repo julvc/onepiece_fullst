@@ -81,6 +81,9 @@ async def get_fruit_count_by_search(
         response.raise_for_status()
         data = response.json()
         
+        if isinstance(data, int):
+            return {"count": data}
+        
         # Validar y convertir los datos
         valid_data = [Fruit(**item) for item in data if item]
         return valid_data

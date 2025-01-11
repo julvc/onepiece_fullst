@@ -71,6 +71,10 @@ async def get_count_movies_by_search(
         response = requests.get(f"{BASE_URL}/movies/en/search/count", params=params)
         response.raise_for_status()
         valid_data = response.json()
+        
+        if isinstance(valid_data, int):
+            return {"count": valid_data}
+        
         valid_data = [Film(**item) for item in valid_data if item]
         return valid_data
     except ValidationError as e:

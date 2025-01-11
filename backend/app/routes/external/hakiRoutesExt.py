@@ -82,6 +82,10 @@ async def get_hakis_by_character_id(character_id: int):
         response = requests.get(f"{BASE_URL}/hakis/en/character/{character_id}")
         response.raise_for_status()
         valid_data = response.json()
+        
+        if isinstance(valid_data, int):
+            return {"count": valid_data}
+        
         valid_data = [Haki(**item) for item in valid_data if item]
         return valid_data
     except requests.exceptions.RequestException as e:

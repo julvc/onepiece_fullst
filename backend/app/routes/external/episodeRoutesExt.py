@@ -68,6 +68,10 @@ async def get_count_episodes_by_saga(saga_id: int):
         response = requests.get(f"{BASE_URL}/episodes/en/count/saga/{saga_id}")
         response.raise_for_status()
         valid_data = response.json()
+        
+        if isinstance(valid_data, int):
+            return {"count": valid_data}
+        
         valid_data = [Episode(**item) for item in valid_data if item]
         return valid_data
     except requests.exceptions.RequestException as e:
@@ -80,6 +84,10 @@ async def get_count_episodes_by_arc(arc_id: int):
         response = requests.get(f"{BASE_URL}/episodes/en/count/arc/{arc_id}")
         response.raise_for_status()
         valid_data = response.json()
+        
+        if isinstance(valid_data, int):
+            return {"count": valid_data}
+        
         valid_data = [Episode(**item) for item in valid_data if item]
         return valid_data
     except requests.exceptions.RequestException as e:
