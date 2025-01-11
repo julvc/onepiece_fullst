@@ -15,9 +15,7 @@ async def get_boats():
     try:
         response = requests.get(f"{BASE_URL}/boats/en")
         response.raise_for_status()
-        valid_data = response.json()
-        valid_data = [Boat(**item) for item in valid_data if item]
-        return valid_data
+        return response.json()
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=str(e))
     
@@ -26,14 +24,19 @@ async def search_boats(
     name: Optional[str] = None, 
     type: Optional[str] = None ):
     try:
+
         params = {}
         if name:
             params["name"] = name
         if type:
             params["type"] = type
-        response = requests.get(f"{BASE_URL}/boats/search", params=params)
+        
+        print("PAGINA SEARCH")
+        print(f"{BASE_URL}/fruits/en/search",params)
+        response = requests.get(f"{BASE_URL}/boats/en/search", params=params)
         response.raise_for_status()
         data = response.json()
+        
         valid_data = [Boat(**item) for item in data if item]
         return valid_data
     except ValidationError as e:
@@ -77,7 +80,7 @@ async def get_boats_count_by_crew(crew_id: int):
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@router.get("/en/count/captain/{captain_id}", response_model=List[Boat], summary="Get boats by type")
+@router.get("/en/captain/{captain_id}", response_model=List[Boat], summary="Get boats by type")
 async def get_boats_by_captain(captain_id: int):
     try:
         response = requests.get(f"{BASE_URL}/boats/en/captain/{captain_id}")

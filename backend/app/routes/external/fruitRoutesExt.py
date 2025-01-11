@@ -33,6 +33,7 @@ async def search_fruit(
             params["type"] = type
         
         response = requests.get(f"{BASE_URL}/fruits/en/search", params=params)
+
         response.raise_for_status()
         data = response.json()
         

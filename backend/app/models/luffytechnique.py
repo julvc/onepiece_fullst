@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, ConfigDict, field_validator
 from typing import Optional
 from bson import ObjectId
 
-from backend.app.models.luffygear import LuffyGear
+from app.models.luffygear import LuffyGear
 
 class LuffyTechnique(BaseModel):
     id: Optional[str] = Field(alias="id")

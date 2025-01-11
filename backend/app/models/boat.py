@@ -1,21 +1,12 @@
 from pydantic import BaseModel, Field, ConfigDict, field_validator
-from typing import List, Optional
+from typing import List, Optional, Union
 from bson import ObjectId
 
-from backend.app.models.character import Character
-from backend.app.models.crew import Crew
-
-# class Captain(BaseModel):
-#     id: Optional[str] = Field(alias="_id")
-#     name: str
-#     size: Optional[str] = None
-#     job: Optional[str] = None
-#     status: Optional[str] = None
-#     age: Optional[str] = None
-#     bounty: Optional[str] = None
+from app.models.character import Character
+from app.models.crew import Crew
 
 class Boat(BaseModel):
-    id: Optional[str] = Field(alias="_id")
+    id: Optional[Union[str, int]] = Field(alias="_id")
     name: str
     job: Optional[str] = None
     size: Optional[str] = None

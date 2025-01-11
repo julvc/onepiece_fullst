@@ -1,20 +1,19 @@
 from pydantic import BaseModel, Field, ConfigDict, field_validator
-from typing import Optional
+from typing import Optional, Union
 from bson import ObjectId
-from backend.app.models.crew import Crew
-from backend.app.models.fruit import Fruit
+from app.models.crew import Crew
+from app.models.fruit import Fruit
 
 class Character(BaseModel):
-    id: Optional[str] = Field(alias="_id")
+    id: Optional[Union[str, int]] = Field(alias="_id")
     name: str
-    job: Optional[str] = None
     size: Optional[str] = None
-    birthday: Optional[str] = None
+    job: Optional[str] = None
+    status: Optional[str] = None
     age: Optional[str] = None
     bounty: Optional[str] = None
-    status: Optional[str] = None
     crew: Crew
-    fruit: Fruit
+    fruit: Optional[Fruit]
 
     model_config: ConfigDict = {
         'populate_by_name': True

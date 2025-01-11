@@ -3,8 +3,8 @@ from pydantic import BaseModel, Field, ConfigDict, field_validator
 from typing import Optional
 from bson import ObjectId
 
-from backend.app.models.bow import Bow
-from backend.app.models.saga import Saga
+from app.models.bow import Bow
+from app.models.saga import Saga
 
 class Episode(BaseModel):
     id: Optional[str] = Field(alias="id")

@@ -3,11 +3,11 @@ from bson import ObjectId
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 class Fruit(BaseModel):
-    id: Optional[Union[str, int]] = Field(alias="_id")
+    id: Optional[Union[str, int]] = Field(None, alias="_id")  # Hacer que sea None por defecto
     name: str
+    description: Optional[str] = None
     roman_name: Optional[str] = None
     type: Optional[str] = None
-    description: Optional[str] = None
     filename: Optional[str] = None
     technicalFile: Optional[str] = None
 
