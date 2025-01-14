@@ -14,22 +14,22 @@ BASE_URL = f"{settings.API_URL}"
 @router.get("/en", summary="List all arcs")
 async def get_arcs():
     try:
-        response = requests.get(f"{BASE_URL}/arc/en")
+        response = requests.get(f"{BASE_URL}/arcs/en")
         response.raise_for_status()
-        valid_data = response.json()
-        valid_data = [Bow(**item) for item in valid_data if item]
-        return valid_data
+        return response.json()
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@router.get("/en/search",response_model=List[Bow] ,summary="Search arc by name")
-async def search_arc(
-    title: Optional[str] = None
-    ):
+@router.get("/en/search",response_model=List[Bow] ,summary="Search arc by title")
+async def search_arc(title: Optional[str] = None):
     try:
-        response = requests.get(f"{BASE_URL}/arcs/en/search?title={title}")
+        params = {}
+        if title:
+            params["title"] = title
+        response = requests.get(f"{BASE_URL}/arcs/en/search", params=params)
         response.raise_for_status()
         data = response.json()
+        
         valid_data = [Bow(**item) for item in data if item]
         return valid_data
     except ValidationError as e:
@@ -69,7 +69,7 @@ async def get_arcs_by_saga(saga_id: int):
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@router.get("/en/saga/{saga_id}", summary="Get arc count by saga")
+@router.get("/en/count/saga/{saga_id}", summary="Get arc count by saga")
 async def get_arc_count_by_saga(saga_id: int):
     try:
         response = requests.get(f"{BASE_URL}/arcs/en/count/saga/{saga_id}")

@@ -8,7 +8,8 @@ class Bow(BaseModel):
     id: Optional[Union[str, int]] = Field(alias="_id")
     title: Optional[str] = None
     description: Optional[str] = None
-    saga: Saga
+    sagaId: Optional[Union[str, int]] = Field(alias="sagaId", default=None)
+    saga: Optional[Saga] = None
     
     model_config: ConfigDict = {
         'populate_by_name': True
@@ -20,3 +21,7 @@ class Bow(BaseModel):
         if isinstance(value, ObjectId) or isinstance(value, int):
             return str(value)
         return value
+    
+    def model_dump(self, *args, **kwargs):
+        kwargs.setdefault('exclude_none', True)  # Asegúrate de que 'exclude_none' sea True por defecto
+        return super().model_dump(*args, **kwargs)

@@ -55,7 +55,7 @@ app.include_router(sagasRoutesExt.router, prefix="/api/sagas", tags=["External A
 app.include_router(locateRoutesExt.router, prefix="/api/locates", tags=["External API for Locations"])
 app.include_router(fruitRoutesExt.router, prefix="/api/fruits", tags=["External API for Fruits"])
 app.include_router(boatRoutesExt.router, prefix="/api/boats", tags=["External API for Boats"])
-app.include_router(bowRoutesExt.router, prefix="/api/bows", tags=["External API for Bows"])
+app.include_router(bowRoutesExt.router, prefix="/api/arcs", tags=["External API for Bows"])
 app.include_router(chapterRoutesExt.router, prefix="/api/chapters", tags=["External API for Chapters"])
 app.include_router(characterRoutesExt.router, prefix="/api/characters", tags=["External API for Characters"])
 app.include_router(crewRoutesExt.router, prefix="/api/crews", tags=["External API for Crews"])
