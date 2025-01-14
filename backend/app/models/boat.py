@@ -18,9 +18,12 @@ class Boat(BaseModel):
         'populate_by_name': True
     }
 
-    # Validación adicional para convertir ObjectId a str
     @field_validator("id", mode="before")
     def convert_object_id(cls, value):
         if isinstance(value, ObjectId):
             return str(value)
         return value
+
+    def model_dump(self, *args, **kwargs):
+        kwargs.setdefault('exclude_none', True)  # Asegúrate de que 'exclude_none' sea True por defecto
+        return super().model_dump(*args, **kwargs)

@@ -27,3 +27,7 @@ class Crew(BaseModel):
         if isinstance(value, bool):
             return str(value)  # Convierte True/False a 'True'/'False'
         return value
+    
+    def model_dump(self, *args, **kwargs):
+        kwargs.setdefault('exclude_none', True)
+        return super().model_dump(*args, **kwargs)
