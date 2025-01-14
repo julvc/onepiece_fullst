@@ -34,14 +34,14 @@ def test_get_boats_by_crew():
     response = client.get("/api/boats/en/crew/8")
     assert response.status_code == 200
 
-# def test_get_boats_count_by_crew():
-#     response = client.get("/api/boats/en/count/crew/8")
-#     assert response.status_code == 200
+def test_get_boats_count_by_crew():
+    response = client.get("/api/boats/en/count/crew/8")
+    assert response.status_code == 200
 
-# def test_get_boats_by_captain():
-#     response = client.get("/api/boats/en/captain/8")
-#     assert response.status_code == 200
+def test_get_boats_by_captain():
+    response = client.get("/api/boats/en/captain/8")
+    assert response.status_code == 200
 
-# def test_get_boats_count_by_crew():
-#     response = client.get("/api/boats/en/count/captain/8")
-#     assert response.status_code == 200
+def test_get_boats_count_by_captain():
+    response = client.get("/api/boats/en/count/captain/8")
+    assert response.status_code == 200

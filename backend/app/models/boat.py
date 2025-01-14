@@ -11,8 +11,8 @@ class Boat(BaseModel):
     description: Optional[str] = None
     type: Optional[str] = None
     roman_name: Optional[str] = None
-    crew: Crew
-    character_captain: Character
+    crew: Optional[Crew] = None
+    character_captain: Optional[Character] = None
 
     model_config: ConfigDict = {
         'populate_by_name': True
