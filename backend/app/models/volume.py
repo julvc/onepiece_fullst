@@ -1,14 +1,14 @@
-from typing import Optional
+from typing import Optional, Union
 from bson import ObjectId
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class Volume(BaseModel):
-    id: Optional[int]
-    tome_number: str
-    title: str
-    tome_japan_date_publish: str
-    tome_french_date_publish: str
+    id: Optional[Union[str, int]] = Field(alias="_id")
+    tome_number: Optional[str] = None
+    title: Optional[str] = None
+    tome_japan_date_publish: Optional[str] = None
+    tome_french_date_publish: Optional[str] = None
     
     model_config: ConfigDict = {
         'populate_by_name': True

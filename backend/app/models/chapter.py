@@ -1,15 +1,15 @@
 from pydantic import BaseModel, Field, ConfigDict, field_validator
-from typing import Optional
+from typing import Optional, Union
 from bson import ObjectId
 
 from app.models.volume import Volume
 
 class Chapter(BaseModel):
-    id: Optional[str] = Field(alias="id")
+    id: Optional[Union[str, int]] = Field(alias="_id")
     chapter_number: Optional[str] = None
-    title: str
+    title: Optional[str] = None
     description: Optional[str] = None
-    tome: Volume
+    tome: Optional[Volume] = None
 
     model_config: ConfigDict = {
         'populate_by_name': True
