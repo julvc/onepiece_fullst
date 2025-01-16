@@ -16,9 +16,7 @@ async def get_characters():
     try:
         response = requests.get(f"{BASE_URL}/characters/en")
         response.raise_for_status()
-        valid_data = response.json()
-        valid_data = [Character(**item) for item in valid_data if item]
-        return valid_data
+        return response.json()
     except requests.exceptions.RequestException as e:
         logger.error(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")

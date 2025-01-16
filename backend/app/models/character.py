@@ -12,7 +12,7 @@ class Character(BaseModel):
     status: Optional[str] = None
     age: Optional[str] = None
     bounty: Optional[str] = None
-    crew: Crew
+    crew: Optional[Crew] = None
     fruit: Optional[Fruit] = None
 
     model_config: ConfigDict = {
