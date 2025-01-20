@@ -3,8 +3,8 @@ from typing import Optional, Union
 from bson import ObjectId
 
 class Saga(BaseModel):
-    id: Optional[Union[str, int]] = Field(alias="_id")
-    title: str
+    id: Optional[Union[str, int]] = Field(default=None, alias="_id")
+    title: Optional[str] = None
     saga_number: Optional[str] = None
     saga_chapitre: Optional[str] = None
     saga_volume: Optional[str] = None

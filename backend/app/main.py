@@ -61,7 +61,7 @@ app.include_router(characterRoutesExt.router, prefix="/api/characters", tags=["E
 app.include_router(crewRoutesExt.router, prefix="/api/crews", tags=["External API for Crews"])
 app.include_router(dialRoutesExt.router, prefix="/api/dials", tags=["External API for Dials"])
 app.include_router(episodeRoutesExt.router, prefix="/api/episodes", tags=["External API for Episodes"])
-app.include_router(filmRoutesExt.router, prefix="/api/films", tags=["External API for Films"])
+app.include_router(filmRoutesExt.router, prefix="/api/movies", tags=["External API for Films"])
 app.include_router(hakiRoutesExt.router, prefix="/api/hakis", tags=["External API for Hakis"])
 app.include_router(luffygearRoutesExt.router, prefix="/api/luffysgears", tags=["External API for Luffys Gears"])
 app.include_router(luffytechniqueRoutesExt.router, prefix="/api/luffystechniques", tags=["External API for Luffys Techniques"])

@@ -16,9 +16,7 @@ async def get_dials():
     try:
         response = requests.get(f"{BASE_URL}/dials/en")
         response.raise_for_status()
-        valid_data = response.json()
-        valid_data = [Dial(**item) for item in valid_data if item]
-        return valid_data
+        return response.json()
     except requests.exceptions.RequestException as e:
         logger.error(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -61,6 +59,11 @@ async def get_dials_en_by_id(dial_id: int):
         response = requests.get(f"{BASE_URL}/dials/en/{dial_id}")
         response.raise_for_status()
         data = response.json()
+
+        # Asegúrate de que '_id' esté presente en los datos
+        if "_id" not in data:
+            data["_id"] = None  # O cualquier valor predeterminado
+
         return Dial(**data)
     except requests.exceptions.RequestException as e:
         logger.error(f"Error: {e}")

@@ -16,9 +16,7 @@ async def get_all_films():
     try:
         response = requests.get(f"{BASE_URL}/movies/en")
         response.raise_for_status()
-        valid_data = response.json()
-        valid_data = [Film(**item) for item in valid_data if item]
-        return valid_data
+        return response.json()
     except requests.exceptions.RequestException as e:
         logger.error(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -27,7 +25,10 @@ async def get_all_films():
 async def search_films(
     title: Optional[str] = None):
     try:
-        response = requests.get(f"{BASE_URL}/movies/en/search/{title}")
+        params = {}
+        if title:
+            params = {"title": title}
+        response = requests.get(f"{BASE_URL}/movies/en/search",params=params)
         response.raise_for_status()
         valid_data = response.json()
         valid_data = [Film(**item) for item in valid_data if item]
@@ -54,14 +55,12 @@ async def get_film_by_id(film_id: int):
     try:
         response = requests.get(f"{BASE_URL}/movies/en/{film_id}")
         response.raise_for_status()
-        valid_data = response.json()
-        valid_data = [Film(**item) for item in valid_data if item]
-        return valid_data
+        return response.json()
     except requests.exceptions.RequestException as e:
         logger.error(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-@router.get("/en/search/count", response_model=List[Film], summary="Get episodes for film")
+@router.get("/en/search/count", summary="Get episodes for film")
 async def get_count_movies_by_search(
     title: Optional[str] = None):
     try:
@@ -70,13 +69,8 @@ async def get_count_movies_by_search(
             params = {"title": title}
         response = requests.get(f"{BASE_URL}/movies/en/search/count", params=params)
         response.raise_for_status()
-        valid_data = response.json()
-        
-        if isinstance(valid_data, int):
-            return {"count": valid_data}
-        
-        valid_data = [Film(**item) for item in valid_data if item]
-        return valid_data
+        data = response.json()
+        return data
     except ValidationError as e:
         logger.error(f"Error: {e}")
         raise HTTPException(status_code=422, detail="Unprocessable Entity")

@@ -5,7 +5,7 @@ from bson import ObjectId
 from app.models.saga import Saga
 
 class Bow(BaseModel):
-    id: Optional[Union[str, int]] = Field(alias="_id")
+    id: Optional[Union[str, int]] = Field(default=None, alias="_id")
     title: Optional[str] = None
     description: Optional[str] = None
     sagaId: Optional[Union[str, int]] = Field(alias="sagaId", default=None)
