@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-# from app.db.mongo import mongo
 from fastapi.middleware.cors import CORSMiddleware
 from app.db.mongo import connect_to_mongo, close_mongo_connection
 from contextlib import asynccontextmanager
