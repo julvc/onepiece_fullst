@@ -9,11 +9,15 @@ logger.setLevel("DEBUG")
 
 router = APIRouter()
 BASE_URL = f"{settings.API_URL}"
+NUM_MAX_REGS = "Número máximo de registros a devolver"
+NUM_TO_JUMP = "Número de registros a saltar"
+ERROR_API_MSG = "Error de conexión con la API externa"
+
 
 @router.get("/en", summary="List all boats")
 async def get_boats(
-    limit: Optional[int] = Query(None, description="Número máximo de registros a devolver"),
-    offset: Optional[int] = Query(None, description="Número de registros a saltar")
+    limit: Optional[int] = Query(None, description=NUM_MAX_REGS),
+    offset: Optional[int] = Query(None, description=NUM_TO_JUMP)
 ):
     try:
         params = {}
@@ -31,14 +35,14 @@ async def get_boats(
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
     
 @router.get("/en/search", response_model=List[Boat], summary="Search boat by name")
 async def search_boats(
     name: Optional[str] = None, 
     type: Optional[str] = None,
-    limit: Optional[int] = Query(None, description="Número máximo de registros a devolver"),
-    offset: Optional[int] = Query(None, description="Número de registros a saltar")
+    limit: Optional[int] = Query(None, description=NUM_MAX_REGS),
+    offset: Optional[int] = Query(None, description=NUM_TO_JUMP)
 ):
     try:
         params = {}
@@ -68,7 +72,7 @@ async def search_boats(
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
     
 @router.get("/en/count", summary="Get boat count")
 async def get_boats_count():
@@ -82,7 +86,7 @@ async def get_boats_count():
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
     
 @router.get("/en/{boat_id}", response_model=Boat, summary="Get boat by id")
 async def get_boat_by_id(boat_id: int):
@@ -98,7 +102,7 @@ async def get_boat_by_id(boat_id: int):
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
     except ValueError as e:
         logger.error(f"Error de validación: {e}")
         raise HTTPException(status_code=422, detail=f"Error en datos recibidos: {str(e)}")
@@ -106,8 +110,8 @@ async def get_boat_by_id(boat_id: int):
 @router.get("/en/crew/{crew_id}", response_model=List[Boat], response_model_exclude_none=True, summary="Get boats by crew")
 async def get_boats_by_crew(
     crew_id: int,
-    limit: Optional[int] = Query(None, description="Número máximo de registros a devolver"),
-    offset: Optional[int] = Query(None, description="Número de registros a saltar")
+    limit: Optional[int] = Query(None, description=NUM_MAX_REGS),
+    offset: Optional[int] = Query(None, description=NUM_TO_JUMP)
 ):
     try:
         params = {}
@@ -131,7 +135,7 @@ async def get_boats_by_crew(
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
     except ValueError as e:
         logger.error(f"Error de validación: {e}")
         raise HTTPException(status_code=422, detail=f"Error en datos recibidos: {str(e)}")
@@ -148,13 +152,13 @@ async def get_boats_count_by_crew(crew_id: int):
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
 
 @router.get("/en/captain/{captain_id}", response_model=List[Boat], response_model_exclude_none=True, summary="Get boats by captain")
 async def get_boats_by_captain(
     captain_id: int,
-    limit: Optional[int] = Query(None, description="Número máximo de registros a devolver"),
-    offset: Optional[int] = Query(None, description="Número de registros a saltar")
+    limit: Optional[int] = Query(None, description=NUM_MAX_REGS),
+    offset: Optional[int] = Query(None, description=NUM_TO_JUMP)
 ):
     try:
         params = {}
@@ -178,7 +182,7 @@ async def get_boats_by_captain(
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
     except ValueError as e:
         logger.error(f"Error de validación: {e}")
         raise HTTPException(status_code=422, detail=f"Error en datos recibidos: {str(e)}")
@@ -195,4 +199,4 @@ async def get_boats_count_by_captain(captain_id: int):
         raise HTTPException(status_code=e.response.status_code, detail=str(e))
     except httpx.RequestError as e:
         logger.error(f"Error de solicitud: {e}")
-        raise HTTPException(status_code=500, detail="Error de conexión con la API externa")
+        raise HTTPException(status_code=500, description=ERROR_API_MSG)
